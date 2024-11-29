@@ -1,31 +1,32 @@
 from sys import exit
 from math import sqrt
 from time import sleep
-import os
+from os import system, name
 
 def cls():
-    os.system('cls') if os.name == 'nt' else 'clear' # Limpar terminal
+    system('cls') if name == 'nt' else 'clear' # Limpar terminal
 cls()
 
 def menu():
     while True:
         try:
-            print("FORMULAS DA FÍSICA")
-            print("[1] Força Gravitacional\n[2] Dilatação temporal\n[3] Sair\n")
+            cls()
+            print("FORMULAS DA FÍSICA\n[1] Força Gravitacional\n[2] Dilatação temporal\n[3] Sair\n")
             entrada = int(input("Digite: "))
 
-            if entrada == 1:
-                cls()
-                forca_grav()
-            elif entrada == 2:
-                cls()
-                dilatacao()
-            elif entrada == 3:
-                exit()
+            opcoes = {
+                1: forca_grav,
+                2: dilatacao,
+                3: exit
+            }
+
+            if entrada in opcoes:
+                opcoes[entrada]()
             else:
                 print("Escolha um número válido.")
                 sleep(2)
                 cls()
+
         except ValueError:
             print("Escolha apenas números válidos.")
             sleep(2)
@@ -41,8 +42,7 @@ def forca_grav():
 
     resultado = constante_grav * massa1 * massa2 / distancia**2
     print(f"A força gravitacional é: {resultado:.1e} N")
-    sleep(4)
-    cls()
+    system('pause')
 
 def dilatacao():
     observador_horas = float(input("Tempo experimentado pelo observador longe (em horas): "))
@@ -53,7 +53,6 @@ def dilatacao():
     
     raio_buraco_negro = 30_000  # Aproximadamente 30 km
 
-
     velocidade_luz = 3.00e8
 
     # Cálculo da dilatação temporal
@@ -62,7 +61,6 @@ def dilatacao():
     resultado_horas = resultado / 3600
 
     print(f"O tempo dilatado é: {resultado_horas:.2f} horas")
-    sleep(4)
-    cls()
+    system('pause')
 
 menu()
